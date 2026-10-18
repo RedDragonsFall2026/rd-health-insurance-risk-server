@@ -1,21 +1,39 @@
+// Import Express
 const express = require('express')
 app = express()
 
+// Add CORS
 const cors = require('cors')
 
 var url = require('url')
 
+// Server run on port 3000
 const port = process.env.PORT || 3000
 
 app.use(express.static(__dirname + '/static'))
 app.use(cors({origin: '*'}))
 
+// Ping API to wake up server
 app.get('/ping', (req, res) => {
     console.log('Calling /ping')
     res.type('text/plain')
     res.send('ping responce')
 })
 
+/*
+BMI API to calculate patient's BMI
+
+Input Parameters:
+feet : patient's height (feet)
+inchest : patient's height (inches)
+pounds : patient's weight (pounds)
+
+Returns one of 4 categories:
+normal
+overweight
+obese
+uncategorized
+*/
 app.get('/bmi/:feet/:inches/:pounds', (req, res) => {
 
     // Get input to API as parameters

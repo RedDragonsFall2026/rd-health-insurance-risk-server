@@ -8,4 +8,5 @@ async function testBMI()
     document.getElementById("bmi-test").innerHTML = bmiResponse
 }
 
+// Calls BMI test function
 testBMI()
