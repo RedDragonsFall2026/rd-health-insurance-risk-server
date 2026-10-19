@@ -63,11 +63,9 @@ app.get('/bp-category/:systolic/:diastolic', (req, res) => {
 })
 
 // 4. Risk Category API (Calculates points server-side)
-app.get('/risk-category/:age/:feet/:inches/:pounds/:sys/:dia/:diabetes/:cancer/:alzheimers', (req, res) => {
+app.get('/risk-category/:age/:bmi_category/:sys/:dia/:diabetes/:cancer/:alzheimers', (req, res) => {
     const age = parseInt(req.params.age)
-    const feet = parseFloat(req.params.feet)
-    const inches = parseFloat(req.params.inches)
-    const pounds = parseFloat(req.params.pounds)
+    const bmiCategory = req.params.bmi_category
     const sys = parseInt(req.params.sys)
     const dia = parseInt(req.params.dia)
     const hasDiabetes = req.params.diabetes === 'true'
@@ -84,12 +82,9 @@ app.get('/risk-category/:age/:feet/:inches/:pounds/:sys/:dia/:diabetes/:cancer/:
     else agePoints = 30
 
     // 2. BMI Points
-    let meters = feet * 0.3048 + inches * 0.0254
-    let kg = pounds * 0.45359237
-    let bmi = kg / meters ** 2
     let bmiPoints = 0
-    if (bmi >= 25.0 && bmi <= 29.9) bmiPoints = 30
-    else if (bmi >= 30.0 && bmi <= 34.9) bmiPoints = 75
+    if (bmiCategory == 'overweight') bmiPoints = 30
+    else if (bmiCategory == 'obese') bmiPoints = 75
 
     // 3. BP Points
     let bpPoints = 0
